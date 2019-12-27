@@ -1,0 +1,28 @@
+{
+    "available": [{
+        "name": "turtle",
+        "version": "1.0.0",
+        "description": "Turtle ajoute une simulation du robot bolty permettant de visualiser l'effet d'un code avant envoie"
+    }, {
+        "name": "prettycode",
+        "version": "1.0.0",
+        "description": ""
+    }, {
+        "name": "robot",
+        "version": "1.0.0",
+        "description": ""
+    }],
+    "installed": [{
+        "name": "turtle",
+        "version": "1.0.0",
+        "description": "Turtle ajoute une simulation du robot bolty permettant de visualiser l'effet d'un code avant envoie"
+    }, {
+        "name": "prettycode",
+        "version": "1.0.0",
+        "description": ""
+    }, {
+        "name": "robot",
+        "version": "1.0.0",
+        "description": ""
+    }]
+}

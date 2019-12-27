@@ -1,0 +1,77 @@
+<xml>
+    <category id="catBotly" name="Botly">
+            <block type="botly_crayon">
+            <value name="PEN">
+                <shadow type="logic_boolean">
+                    <field name="BOOL">true</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="botly_deplacement_adv">
+            <value name="dist">
+                <shadow type="math_number">
+                    <field name="NUM">50</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="botly_rotation_adv">
+            <value name="angle">
+                <shadow type="botly_angle"></shadow>
+            </value>
+        </block>
+    </category>
+    <sep></sep>
+    <category id="catLoops" name="Loops">
+        <block type="controls_repeat_ext">
+            <value name="TIMES">
+                <block type="math_number">
+                    <field name="NUM">5</field>
+                </block>
+            </value>
+        </block>
+        <block type="controls_for">
+            <value name="FROM">
+                <block type="math_number">
+                    <field name="NUM">1</field>
+                </block>
+            </value>
+            <value name="TO">
+                <block type="math_number">
+                    <field name="NUM">10</field>
+                </block>
+            </value>
+            <value name="BY">
+                <block type="math_number">
+                    <field name="NUM">1</field>
+                </block>
+            </value>
+        </block>
+    </category>
+    <sep></sep>
+    <category id="catMath" name="Math">
+        <block type="math_number"></block>
+        <block type="math_random_int">
+            <value name="FROM">
+                <block type="math_number">
+                    <field name="NUM">1</field>
+                </block>
+            </value>
+            <value name="TO">
+                <block type="math_number">
+                    <field name="NUM">100</field>
+                </block>
+            </value>
+        </block>
+    </category>
+    <sep></sep>
+    <category id="catVariables" name="Variables">
+        <block type="variables_get"></block>
+        <block type="variables_set"></block>
+    </category>
+    <sep></sep>
+    <category id="catFunctions" name="Functions" custom="PROCEDURE"></category>
+    <sep></sep>
+    <category id="catTime" name="Time">
+        <block type="infinite_loop"></block>
+    </category>
+</xml>

@@ -1,0 +1,9 @@
+[submodule "public/plugins/prettycode"]
+	path = public/plugins/prettycode
+	url = git@gitlab.com:lamachinerie/botly/botlystudio/plugins/prettycode.git
+[submodule "public/plugins/turtle"]
+	path = public/plugins/turtle
+	url = git@gitlab.com:lamachinerie/botly/botlystudio/plugins/turtle.git
+[submodule "public/plugins/robot"]
+	path = public/plugins/robot
+	url = git@gitlab.com:lamachinerie/botly/botlystudio/plugins/robot.git

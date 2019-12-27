@@ -1,0 +1,293 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta name="description" content="Application Botly-Studio. Apprenez l'algorithmie grâce au dessin" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="icon" href="./icons/logo.ico">
+    <title class="translatable_title">Botly-Studio</title>
+
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Horizontal Navigation bar -->
+    <nav class="nav-fixed arduino_orange">
+        <div class="nav-wrapper">
+            <a id="logo-container" href="#" class="brand-logo left">
+                <i href="#" data-target="slide-out" id="button-collapse" class="sidenav-trigger material-icons" style="margin-left: 10px; font-size: 3rem!important;">menu</i>
+                <span class="app_title translatable_title">Botly-Studio</span>
+                <span class="sketch_name_wrapper">
+          <input id="sketch_name" class="sketch_name" type="text">
+          <i class="material-icons right">edit</i>
+        </span>
+            </a>
+            <!-- Horizontal Navbar links only shown on large resolutions -->
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li>
+                    <a href="#" id="button_load">
+                        <i class="material-icons left">folder</i>
+                        <span class="translatable_open">Ouvrir</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="button_save">
+                        <i class="material-icons left">save</i>
+                        <span class="translatable_save">Sauvegarder</span>
+                        <!--i class="mdi-file-file-download left"></i-->
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="button_delete" hidden>
+                        <i class="material-icons left">directions_run</i>
+                        <span class="translatable_deleteAll">Tout Supprimer</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Sidebar navigation -->
+    <ul id="slide-out" class="sidenav">
+        <li class="no-padding side-menu-begin">&nbsp;</li>
+        <li class="no-padding">
+            <ul>
+                <li>
+                    <div id="background">
+                        <img id="side_logo" src="./images/botly.jpg">
+                        <img id="side_logo" src="./images/openbot.png">
+                    </div>
+                </li>
+                <li id="menu_load">
+                    <a href="#">
+                        <span class="translatable_open">Ouvrir</span>
+                        <i class="medium material-icons left" style="line-height: 2">folder</i>
+                    </a>
+                </li>
+                <li id="menu_save">
+                    <a href="#">
+                        <span class="translatable_save">Sauvegarder</span>
+                        <i class="medium material-icons left" style="line-height: 2">save</i>
+                    </a>
+                </li>
+                <li id="menu_delete">
+                    <a href="#"><span class="translatable_deleteAll">Tout supprimer</span>
+            <i class="medium material-icons left" style="line-height: 2">delete_forever</i>
+          </a>
+                </li>
+                <li id="menu_settings">
+                    <a href="#settings_dialog" class="waves-effect waves-light modal-trigger">
+                        <span class="translatable_settings">Paramètres</span>
+                        <i class="medium material-icons left" style="line-height: 2">build</i>
+                    </a>
+                </li>
+                <li id="menu_web">
+                    <a href="https://botly.lamachinerie.org" target="_blank">
+                        <span class="translatable_documentation">Site Web</span>
+                        <i class="medium material-icons left" style="line-height: 2">web</i>
+                    </a>
+                </li>
+                <li id="menu_bug">
+                    <a href="https://botly.lamachinerie.org/signaler-un-bug" target="_blank">
+                        <span class="translatable_reportBug">Signaler un Bug</span>
+                        <i class="medium material-icons left" style="line-height: 2">bug_report</i>
+                    </a>
+                </li>
+                <li id="menu_buy">
+                    <a href="https://botly.lamachinerie.org/le-robot#h.p_v9t3YdFtEHBD" class="btn" style="margin : 0px !important;">
+                        <span class="translatable_settings">Pré-commander</span>
+                        <i class="medium material-icons" style="line-height: 2; margin-right:0px !important;">shopping_cart</i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="no-padding side-menu-end">&nbsp;</li>
+    </ul>
+
+    <!-- Content -->
+    <div class="container">
+        <div class="row" style="margin-bottom: 0;">
+            <div class="col s12 m12 l8 xl8" style="position:relative">
+                <!-- IDE action buttons -->
+                <div style="position: absolute; width: 100%; height: 70px; top: -40px;">
+                    <div id="ide_buttons_wrapper" class="fixed-action-btn horizontal direction-left" style="position: absolute; display: inline-block; height: 100%; right: 45px; top: 15px; z-index: 12;">
+
+                        <a id="floating_one" class="waves-effect waves-light waves-circle btn-floating btn-large arduino_orange" style="display: none;"><i id="floating_one_icon" class="large material-icons left"></i></a>
+                        <ul>
+                            <li><a id='floating_six' class='waves-effect waves-light waves-circle btn-floating z-depth-1-half arduino_yellow'><i id="floating_six_icon" class='material-icons small'></i></a>
+                            </li>
+                            <li><a id='floating_five' class='waves-effect waves-light waves-circle btn-floating z-depth-1-half arduino_yellow'><i id="floating_five_icon" class='material-icons small'></i></a>
+                            </li>
+                            <li><a id="floating_four" class="waves-effect waves-light waves-circle btn-floating z arduino_orange"><i id="floating_four_icon" class="material-icons small"></i></a>
+                            </li>
+                            <li><a id="floating_three" class="waves-effect waves-light waves-circle btn-floating  arduino_blue"><i id="floating_three_icon" class="material-icons small"></i></a>
+                            </li>
+                            <li><a id="floating_two" class="waves-effect waves-light waves-circle btn-floating  arduino_red"><i id="floating_two_icon" class="material-icons small"></i></a>
+                            </li>
+                        </ul>
+
+                        <div id="floating_one_spinner" class="preloader-wrapper active ide_loader" style="display:none">
+                            <div class="spinner-layer spinner-orange">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                            <div class="spinner-layer spinner-dark-teal">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                            <div class="spinner-layer spinner-yellow">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                            <div class="spinner-layer spinner-light-teal">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blockly Panel -->
+                <div class="card-panel white" style="padding: 0">
+                    <div id="blocks_panel" class="content blocks_panel_large">
+                        <div id="content_blocks" class="content"></div>
+                    </div>
+                </div>
+            </div>
+            <div class='col s12 m12 l4 xl4'>
+                <div class='card-panel white playground_panel_large' style='padding: 0' id="playground">
+                    <div class="row" style="height: 100% - 48px;">
+                        <div class="col s12">
+                            <ul id="tab_wrapper" class="tabs">
+                                <li class="tab col s4">
+                                    <a id="plugin0Head" class="active" href="#plugin0"></a>
+                                </li>
+                                <li class="tab col s4">
+                                    <a id="plugin1Head" href="#plugin1"></a>
+                                </li>
+                                <li class="tab col s4">
+                                    <a id="plugin2Head" href="#plugin2"></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="plugin0" class="col s12">
+                        </div>
+                        <div id="plugin1" class="col s12">
+                        </div>
+                        <div id="plugin2" class="col s12">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="xml_wrapper" hidden>
+        <pre id="content_xml" class="content playground_panel_large"></pre>
+    </div>
+
+
+    <!-- Settings: Displayed as a Materialize Modal -->
+    <div id="settings_dialog" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4><span class="translatable_settings">Paramètres</span></h4>
+            <div class="modal_section">
+                <label><span>Difficulté</span>:</label>
+                <select name="settings_difficulty" id="difficulty"></select>
+            </div>
+            <div class="modal_section">
+                <label><span class="translatable_output_language">Langage de programmation</span>:</label>
+                <select name="settings_output_language" id="outputLang"></select>
+            </div>
+            <div class="modal_section">
+                <label><span class="translatable_language">Langage</span>:</label>
+                <select name="settings_language" id="language"></select>
+            </div>
+            <div style="margin-top: 10%; color: grey" class='modal-section center'>
+                <span><i class="material-icons large">settings</i></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Valider</a>
+        </div>
+    </div>
+
+
+
+    <!-- Select Additional Blocks menu -->
+    <div id="blocks_menu" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <div>
+                <h4><span class="translatable_addBlocksTitle">Blocs supplémentaires</span></h4>
+            </div>
+            <div id="blocks_menu_body"></div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="waves-effect btn-flat modal-close"><span class="translatable_return">Valider</span></a>
+        </div>
+    </div>
+
+    <!-- General Alert: Content is loaded using JavaScript to display alerts -->
+    <div id="gen_alert" class="modal modal_small modal-fixed-footer">
+        <div class="modal-content">
+            <h5 id="gen_alert_title">Empty Alert
+                </h4>
+                <p><span id="gen_alert_body">Empty alert text</span></p>
+        </div>
+        <div class="modal-footer">
+            <a id="gen_alert_ok_link" href="#" class="waves-effect btn-flat modal-close"><span
+          class="translatable_okay">Okay</span></a>
+            <a id="gen_alert_cancel_link" href="#" class="waves-effect btn-flat modal-close"><span
+          class="translatable_cancel">Cancel</span></a>
+        </div>
+    </div>
+
+    <!-- Prompt: Content is loaded using JavaScript to display input prompt -->
+    <div id="gen_prompt" class="modal modal_small modal-fixed-footer">
+        <div class="modal-content">
+            <p><span id="gen_prompt_message">Entrée</span></p>
+            <p><input id="gen_prompt_input" value="test" /></p>
+        </div>
+        <div class="modal-footer">
+            <a id="gen_prompt_ok_link" href="#" class="waves-effect btn-flat modal-close"><span
+          class="translatable_okay">Valider</span></a>
+            <a id="gen_prompt_cancel_link" href="#" class="waves-effect btn-flat modal-close"><span
+          class="translatable_cancel">Annuler</span></a>
+        </div>
+    </div>
+</body>
+
+</html>
