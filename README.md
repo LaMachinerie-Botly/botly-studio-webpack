@@ -1,7 +1,5 @@
 ## Botly Studio - WebApp
 
-[![pipeline status](https://gitlab.com/lamachinerie/botly/botlystudio/webapp/badges/master/pipeline.svg)](https://gitlab.com/lamachinerie/botly/botlystudio/webapp/commits/master)
-
 ### Stable version
 
 #### Local Install
