@@ -28,6 +28,6 @@ module.exports = function(Blockly) {
             Blockly.Arduino.ORDER_ASSIGNMENT) || '0';
         var varName = Blockly.Arduino.variableDB_.getName(
             block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-        return varName + ' = ' + argument0 + ';\n';
+        return "int " + varName + ' = ' + argument0 + ';\n';
     };
 }

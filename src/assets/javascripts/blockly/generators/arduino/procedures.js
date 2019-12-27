@@ -41,11 +41,7 @@ module.exports = function(Blockly) {
         }
 
         // Get return type
-        var returnType = Blockly.Types.NULL;
-        if (block.getReturnType) {
-            returnType = block.getReturnType();
-        }
-        returnType = Blockly.Arduino.getArduinoType_(returnType);
+        var returnType = "int";
 
         // Construct code
         var code = returnType + ' ' + funcName + '(' + args.join(', ') + ') {\n' +
@@ -61,8 +57,45 @@ module.exports = function(Blockly) {
      * type.
      * Arduino code: void functionname { }
      */
-    Blockly.Arduino['procedures_defnoreturn'] =
-        Blockly.Arduino['procedures_defreturn'];
+    Blockly.Arduino['procedures_defnoreturn'] = function(block) {
+        var funcName = Blockly.Arduino.variableDB_.getName(
+            block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
+        var branch = Blockly.Arduino.statementToCode(block, 'STACK');
+        if (Blockly.Arduino.STATEMENT_PREFIX) {
+            branch = Blockly.Arduino.prefixLines(
+                Blockly.Arduino.STATEMENT_PREFIX.replace(/%1/g,
+                    '\'' + block.id + '\''), Blockly.Arduino.INDENT) + branch;
+        }
+        if (Blockly.Arduino.INFINITE_LOOP_TRAP) {
+            branch = Blockly.Arduino.INFINITE_LOOP_TRAP.replace(/%1/g,
+                '\'' + block.id + '\'') + branch;
+        }
+        var returnValue = Blockly.Arduino.valueToCode(block, 'RETURN',
+            Blockly.Arduino.ORDER_NONE) || '';
+        if (returnValue) {
+            returnValue = '  return ' + returnValue + ';\n';
+        }
+
+        // Get arguments with type
+        var args = [];
+        for (var x = 0; x < block.arguments_.length; x++) {
+            args[x] =
+                Blockly.Arduino.getArduinoType_(Blockly.mainWorkspace.variableMap_.getVariable(block.arguments_[x])) +
+                ' ' +
+                Blockly.Arduino.variableDB_.getName(block.arguments_[x],
+                    Blockly.Variables.NAME_TYPE);
+        }
+
+        // Get return type
+        var returnType = "void";
+
+        // Construct code
+        var code = returnType + ' ' + funcName + '(' + args.join(', ') + ') {\n' +
+            branch + returnValue + '}';
+        code = Blockly.Arduino.scrub_(block, code);
+        Blockly.Arduino.userFunctions_[funcName] = code;
+        return null;
+    };
 
     /**
      * Code generator to create a function call with a return value.
@@ -129,33 +162,7 @@ module.exports = function(Blockly) {
      * @private
      */
     Blockly.Arduino.getArduinoType_ = function(typeBlockly) {
-        console.log(typeBlockly);
-        switch (typeBlockly.typeId) {
-            case 'Number':
-                return 'char';
-            case '':
-                return 'int';
-            case Blockly.Types.LARGE_NUMBER.typeId:
-                return 'long';
-            case Blockly.Types.DECIMAL.typeId:
-                return 'float';
-            case Blockly.Types.TEXT.typeId:
-                return 'String';
-            case Blockly.Types.CHARACTER.typeId:
-                return 'char';
-            case Blockly.Types.BOOLEAN.typeId:
-                return 'boolean';
-            case Blockly.Types.NULL.typeId:
-                return 'void';
-            case Blockly.Types.UNDEF.typeId:
-                return 'undefined';
-            case Blockly.Types.CHILD_BLOCK_MISSING.typeId:
-                // If no block connected default to int, change for easier debugging
-                //return 'ChildBlockMissing';
-                return 'int';
-            default:
-                return 'Invalid Blockly Type';
-        }
+        return "int";
     };
     /**
      * Code generator to add code into the setup() and loop() functions.

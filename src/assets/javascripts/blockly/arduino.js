@@ -95,8 +95,10 @@ module.exports = function(Blockly) {
         if (!Blockly.Arduino.variableDB_) {
             Blockly.Arduino.variableDB_ =
                 new Blockly.Names(Blockly.Arduino.RESERVED_WORDS_);
+            Blockly.Arduino.variableDB_.setVariableMap(workspace.getVariableMap());
         } else {
             Blockly.Arduino.variableDB_.reset();
+            Blockly.Arduino.variableDB_.setVariableMap(workspace.getVariableMap());
         }
     };
 

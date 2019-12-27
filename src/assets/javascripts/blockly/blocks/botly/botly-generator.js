@@ -1,6 +1,6 @@
-module.exports = function (Blockly) {
+module.exports = function(Blockly) {
 
-    Blockly.Arduino['start'] = function (block) {
+    Blockly.Arduino['start'] = function(block) {
         //-------------------------------------------------------------------
         Blockly.Arduino.addInclude('Botly', '//Importation de la librarie Botly : \n#include <Botly.h>');
         Blockly.Arduino.addDeclaration('Botly', '//Déclaration du robot :\nBotly robot;');
@@ -13,13 +13,13 @@ module.exports = function (Blockly) {
         return code;
     };
 
-    Blockly.Arduino['botly_angle'] = function (block) {
+    Blockly.Arduino['botly_angle'] = function(block) {
         var value_angle = block.getFieldValue('ANGLE');
         var code = value_angle;
-        return [code, Blockly.JavaScript.ORDER_ATOMIC];
+        return [code, Blockly.Arduino.ORDER_ATOMIC];
     };
 
-    Blockly.Arduino['botly_turn_go'] = function (block) {
+    Blockly.Arduino['botly_turn_go'] = function(block) {
         var turn_go_angle = Blockly.Arduino.valueToCode(block, 'angle', Blockly.Arduino.ORDER_ATOMIC);
 
         var turn_go_distance = Blockly.Arduino.valueToCode(block, 'dist', Blockly.Arduino.ORDER_ATOMIC);
@@ -35,7 +35,7 @@ module.exports = function (Blockly) {
         return code;
     };
 
-    Blockly.Arduino['botly_deplacement'] = function (block) {
+    Blockly.Arduino['botly_deplacement'] = function(block) {
         var value_distance = block.getFieldValue('VALUE');
         var dropdown_type = block.getFieldValue('DIR');
         var code;
@@ -57,7 +57,7 @@ module.exports = function (Blockly) {
         return code;
     };
 
-    Blockly.Arduino['botly_rotation'] = function (block) {
+    Blockly.Arduino['botly_rotation'] = function(block) {
         var value_angle = block.getFieldValue('VALUE');
         var dropdown_type = block.getFieldValue('DIR');
         var code;
@@ -79,7 +79,7 @@ module.exports = function (Blockly) {
         return code;
     };
 
-    Blockly.Arduino['botly_crayon'] = function (block) {
+    Blockly.Arduino['botly_crayon'] = function(block) {
         var dropdown_type = block.getFieldValue('PEN');
         var code;
         //-------------------------------------------------------------------
@@ -103,7 +103,7 @@ module.exports = function (Blockly) {
 
     //ADV
 
-    Blockly.Arduino['botly_deplacement_adv'] = function (block) {
+    Blockly.Arduino['botly_deplacement_adv'] = function(block) {
         var value_distance = Blockly.Arduino.valueToCode(block, 'dist', Blockly.Arduino.ORDER_ATOMIC);
         var dropdown_type = block.getFieldValue('DIR');
         var code;
@@ -125,7 +125,7 @@ module.exports = function (Blockly) {
         return code;
     };
 
-    Blockly.Arduino['botly_rotation_adv'] = function (block) {
+    Blockly.Arduino['botly_rotation_adv'] = function(block) {
         var value_angle = Blockly.Arduino.valueToCode(block, 'angle', Blockly.Arduino.ORDER_ATOMIC);
         var dropdown_type = block.getFieldValue('DIR');
         var code;
@@ -147,7 +147,7 @@ module.exports = function (Blockly) {
         return code;
     };
 
-    Blockly.Arduino['botly_crayon_adv'] = function (block) {
+    Blockly.Arduino['botly_crayon_adv'] = function(block) {
         var dropdown_type = Blockly.Arduino.valueToCode(block, 'PEN', Blockly.Arduino.ORDER_NONE);
         var code;
         //-------------------------------------------------------------------
@@ -165,7 +165,7 @@ module.exports = function (Blockly) {
         return code;
     };
 
-    Blockly.Arduino['botly_stop_adv'] = function (block) {
+    Blockly.Arduino['botly_stop_adv'] = function(block) {
         var dropdown_type = Blockly.Arduino.valueToCode(block, 'time', Blockly.Arduino.ORDER_ATOMIC);
         var code;
         //-------------------------------------------------------------------
@@ -182,7 +182,7 @@ module.exports = function (Blockly) {
     };
 
 
-    Blockly.Arduino['botly_calibration'] = function (block) {
+    Blockly.Arduino['botly_calibration'] = function(block) {
         var number_mm_to_step = block.getFieldValue('MM_TO_STEP');
         var number_rad_to_step = block.getFieldValue('RAD_TO_STEP');
         var code = '';
@@ -209,7 +209,7 @@ module.exports = function (Blockly) {
     //Python Botly block generator
 
 
-    Blockly.Python['start'] = function (block) {
+    Blockly.Python['start'] = function(block) {
 
         var code = '# Déclaration: \ndef setup():\n';
         code += Blockly.Python.statementToCode(block, 'SETUP');
@@ -220,21 +220,21 @@ module.exports = function (Blockly) {
         return code;
     };
 
-    Blockly.Python['botly_angle'] = function (block) {
+    Blockly.Python['botly_angle'] = function(block) {
         var value_angle = block.getFieldValue('ANGLE');
         var code = value_angle;
         return [code, Blockly.Python.ORDER_ATOMIC];
     };
 
 
-    Blockly.Python['botly_stop'] = function (block) {
+    Blockly.Python['botly_stop'] = function(block) {
         var stop_time = block.getFieldValue('time');
         var code = 'stop(' + stop_time + ');\n';
         return code;
     };
 
 
-    Blockly.Python['botly_turn_go'] = function (block) {
+    Blockly.Python['botly_turn_go'] = function(block) {
         var turn_go_angle = block.getFieldValue('angle');
         var turn_go_distance = block.getFieldValue('distance');
         var code = 'turnGo(' + turn_go_angle + ',' + turn_go_distance + ');\n';
@@ -242,28 +242,28 @@ module.exports = function (Blockly) {
     };
 
 
-    Blockly.Python['botly_deplacement'] = function (block) {
+    Blockly.Python['botly_deplacement'] = function(block) {
         // Generate JavaScript for moving forward or backwards.
         var value = block.getFieldValue('VALUE');
         return block.getFieldValue('DIR') +
             '(' + value + ');\n';
     };
 
-    Blockly.Python['botly_rotation'] = function (block) {
+    Blockly.Python['botly_rotation'] = function(block) {
         // Generate JavaScript for turning left or right.
         var value = block.getFieldValue('VALUE');
         return block.getFieldValue('DIR') +
             '(' + value + ');\n';
     };
 
-    Blockly.Python['botly_crayon'] = function (block) {
+    Blockly.Python['botly_crayon'] = function(block) {
         // Generate JavaScript for pen up/down.
         return block.getFieldValue('PEN') +
             '();\n';
     };
 
 
-    Blockly.Python['botly_crayon_adv'] = function (block) {
+    Blockly.Python['botly_crayon_adv'] = function(block) {
         var state = Blockly.Python.valueToCode(block, 'PEN', Blockly.Arduino.ORDER_ATOMIC);
         // Generate JavaScript for pen up/down.
         if (state == 'true') {
@@ -273,7 +273,7 @@ module.exports = function (Blockly) {
         }
     };
 
-    Blockly.Python['botly_deplacement_adv'] = function (block) {
+    Blockly.Python['botly_deplacement_adv'] = function(block) {
         // Generate JavaScript for moving forward or backwards.
         var value = Blockly.Python.valueToCode(block, 'dist', Blockly.Arduino.ORDER_ATOMIC);
 
@@ -281,14 +281,14 @@ module.exports = function (Blockly) {
             '(' + value + ');\n';
     };
 
-    Blockly.Python['botly_rotation_adv'] = function (block) {
+    Blockly.Python['botly_rotation_adv'] = function(block) {
         // Generate JavaScript for turning left or right.
         var value = Blockly.Python.valueToCode(block, 'angle', Blockly.Arduino.ORDER_ATOMIC);
         return block.getFieldValue('DIR') +
             '(' + value + ');\n';
     };
 
-    Blockly.Python['botly_calibration'] = function (block) {
+    Blockly.Python['botly_calibration'] = function(block) {
         var number_mm_to_step = block.getFieldValue('MM_TO_STEP');
         var number_rad_to_step = block.getFieldValue('RAD_TO_STEP');
         var code;
@@ -306,7 +306,7 @@ module.exports = function (Blockly) {
      *                                   *
      *************************************/
 
-    Blockly.JavaScript['start'] = function (block) {
+    Blockly.JavaScript['start'] = function(block) {
         var code = '//Déclaration : \nfunction setup(){\n';
         code += Blockly.JavaScript.statementToCode(block, 'SETUP');
         code += '}\n\nfunction loop(){\n';
@@ -316,33 +316,33 @@ module.exports = function (Blockly) {
         return code;
     };
 
-    Blockly.JavaScript['botly_angle'] = function (block) {
+    Blockly.JavaScript['botly_angle'] = function(block) {
         var value_angle = block.getFieldValue('ANGLE');
         var code = value_angle;
         return [code, Blockly.JavaScript.ORDER_ATOMIC];
     };
 
-    Blockly.JavaScript['botly_deplacement'] = function (block) {
+    Blockly.JavaScript['botly_deplacement'] = function(block) {
         // Generate JavaScript for moving forward or backwards.
         var value = block.getFieldValue('VALUE');
         return block.getFieldValue('DIR') +
             '(' + value + ', "' + block.id + '");\n';
     };
 
-    Blockly.JavaScript['botly_rotation'] = function (block) {
+    Blockly.JavaScript['botly_rotation'] = function(block) {
         // Generate JavaScript for turning left or right.
         var value = block.getFieldValue('VALUE');
         return block.getFieldValue('DIR') +
             '(' + value + ', "' + block.id + '");\n';
     };
 
-    Blockly.JavaScript['botly_crayon'] = function (block) {
+    Blockly.JavaScript['botly_crayon'] = function(block) {
         // Generate JavaScript for pen up/down.
         return block.getFieldValue('PEN') +
             '("' + block.id + '");\n';
     };
 
-    Blockly.JavaScript['botly_crayon_adv'] = function (block) {
+    Blockly.JavaScript['botly_crayon_adv'] = function(block) {
         var state = Blockly.JavaScript.valueToCode(block, 'PEN', Blockly.JavaScript.ORDER_ATOMIC);
         // Generate JavaScript for pen up/down.
         if (state == 'true') {
@@ -352,7 +352,7 @@ module.exports = function (Blockly) {
         }
     };
 
-    Blockly.JavaScript['botly_deplacement_adv'] = function (block) {
+    Blockly.JavaScript['botly_deplacement_adv'] = function(block) {
         // Generate JavaScript for moving forward or backwards.
         var value = Blockly.JavaScript.valueToCode(block, 'dist', Blockly.JavaScript.ORDER_ATOMIC);
 
@@ -360,7 +360,7 @@ module.exports = function (Blockly) {
             '(' + value + ', "' + block.id + '");\n';
     };
 
-    Blockly.JavaScript['botly_rotation_adv'] = function (block) {
+    Blockly.JavaScript['botly_rotation_adv'] = function(block) {
         // Generate JavaScript for turning left or right.
         var value = Blockly.JavaScript.valueToCode(block, 'angle', Blockly.JavaScript.ORDER_ATOMIC);
         return block.getFieldValue('DIR') +
@@ -368,7 +368,7 @@ module.exports = function (Blockly) {
     };
 
 
-    Blockly.JavaScript['botly_turn_go'] = function (block) {
+    Blockly.JavaScript['botly_turn_go'] = function(block) {
         // Generate JavaScript for pen up/down.
         var angle = Blockly.JavaScript.valueToCode(block, 'angle', Blockly.JavaScript.ORDER_ATOMIC);
         var dist = Blockly.JavaScript.valueToCode(block, 'dist', Blockly.JavaScript.ORDER_ATOMIC);
@@ -378,23 +378,23 @@ module.exports = function (Blockly) {
 
     };
 
-    Blockly.JavaScript['botly_stop'] = function (block) {
+    Blockly.JavaScript['botly_stop'] = function(block) {
         return 'none' +
             '("' + block.id + '");\n';
     };
 
-    Blockly.JavaScript['botly_stop_adv'] = function (block) {
+    Blockly.JavaScript['botly_stop_adv'] = function(block) {
         return 'none' +
             '("' + block.id + '");\n';
     };
 
-    Blockly.JavaScript['botly_calibration'] = function (block) {
+    Blockly.JavaScript['botly_calibration'] = function(block) {
         return 'none' +
             '("' + block.id + '");\n';
     };
 
 
-    Blockly.JavaScript['arduino_functions'] = function (block) {
+    Blockly.JavaScript['arduino_functions'] = function(block) {
         var branch = Blockly.JavaScript.statementToCode(block, 'SETUP_FUNC');
         var code = '';
         if (branch) {
@@ -415,7 +415,7 @@ module.exports = function (Blockly) {
      * @param {!Blockly.Block} block Block to generate the code from.
      * @return {string} Completed code.
      */
-    Blockly.JavaScript['infinite_loop'] = function (block) {
+    Blockly.JavaScript['infinite_loop'] = function(block) {
         return 'while(true);\n';
     };
 }
