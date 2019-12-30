@@ -265,7 +265,7 @@ module.exports = function(app) {
     };
 
     let failCb = function(data, textStatus, jqXHR, cbs) {
-        if (cbs) cbs.fail(data, textStatus);
+        if (cbs) cbs.offline(data, textStatus);
     };
 
 
