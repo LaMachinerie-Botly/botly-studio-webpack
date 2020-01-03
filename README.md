@@ -5,15 +5,8 @@
 #### Local Install
 
 ```bash
-git clone git@gitlab.com:lamachinerie/botly/botlystudio/webapp.git
-cd webapp
+git clone https://github.com/LaMachinerie/botlyStudio-webApp.git
+cd botlyStudio-webApp
 npm install
-```
-
-#### Docker install
-
-```bash
-git clone git@gitlab.com:lamachinerie/botly/botlystudio/webapp.git
-cd webapp
-docker build -t botlystudio-webapp .
+npm run server
 ```
