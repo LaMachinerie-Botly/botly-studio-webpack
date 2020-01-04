@@ -28,23 +28,18 @@ module.exports = function(app) {
      */
     app.Lang.DEFAULT_LANG_TEXT = {};
 
+    app.Lang.preload = function() {
+        app.Lang.LANG = app.Lang.getUrlLanguage() ||
+            app.Lang.getLanguageSetting() || app.Lang.LANG;
+        app.Lang.injectLanguageJsSources(app.Lang.LANG);
+    }
 
     /** Initialize the page language. */
     app.Lang.init = function() {
-        // Save the current default language ID to check if it has been changed
-        var defaultLang = app.Lang.LANG;
-
-        // Check server settings and url language, url gets priority
-        app.Lang.LANG = app.Lang.getUrlLanguage() ||
-            app.Lang.getLanguageSetting() || app.Lang.LANG;
-
         app.Lang.populateLanguageMenu(app.Lang.LANG);
+        app.Lang.duplicateDefaultLang();
+        app.Lang.updateLanguageText();
 
-        if (defaultLang !== app.Lang.LANG) {
-            app.Lang.duplicateDefaultLang();
-            app.Lang.injectLanguageJsSources(app.Lang.LANG);
-            app.Lang.updateLanguageText();
-        }
     };
 
     /**
@@ -115,31 +110,30 @@ module.exports = function(app) {
      *     be JS file name.
      */
     app.Lang.injectLanguageJsSources = function(langKey) {
-
         switch (langKey) {
             case 'fr':
-                require('../locales/fr.js')(app)
                 Blockly.setLocale(Fr);
+                require('../locales/fr.js')(app)
                 break;
             case 'en':
-                require('../locales/en.js')(app)
                 Blockly.setLocale(En);
+                require('../locales/en.js')(app)
                 break;
             case 'nl':
-                require('../locales/nl.js')(app)
                 Blockly.setLocale(Nl);
+                require('../locales/nl.js')(app)
                 break;
             case 'pt':
-                require('../locales/pt.js')(app)
                 Blockly.setLocale(Pt);
+                require('../locales/pt.js')(app)
                 break;
             case 'es':
-                require('../locales/es.js')(app)
                 Blockly.setLocale(Es);
+                require('../locales/es.js')(app)
                 break;
             default:
-                require('../locales/fr.js')(app)
                 Blockly.setLocale(Fr);
+                require('../locales/fr.js')(app)
                 break;
         }
     };

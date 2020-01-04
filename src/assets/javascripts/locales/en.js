@@ -1,7 +1,6 @@
 var Blockly = Blockly || require('node-blockly/browser');
 
 module.exports = function(app) {
-
     app.LOCALISED_TEXT = {
         translationLanguage: "English",
         title: "Botly-studio",
@@ -88,6 +87,28 @@ module.exports = function(app) {
         catAudio: "Audio",
         catMotors: "Motors",
         catComms: "Comms",
+        catBotly: "Botly",
+
+        /*Botly category*/
+        botlyStartSetup: "Initialization",
+        botlyStartTitle: "Program start",
+        botlyStartMainLoop: "Main loop",
+        botlyStartTooltip: "Main block",
+        botlyForward: "Go forward",
+        botlyBackward: "Go Backkward",
+        botlyTurn: "Turn",
+        botlyRight: "right",
+        botlyLeft: "left",
+        botlyBy: "by",
+        botlyPenUp: "Raise",
+        botlyPenDown: "Lower",
+        boltyPen: "pen",
+        botlyPenAdv: "Lower the pen",
+        botlyStop: "Wait during",
+        botlyTurnAdv: "Turn by",
+        botlyAndGo: " and go forward by",
+        botlyCalibration: "Calibrate robot :",
+        botlyProximity: "Botly detect something in front of him"
     }
 
 
@@ -202,7 +223,7 @@ module.exports = function(app) {
     Blockly.Msg.ARD_VAR_AS_TIP = "Sets a value to a specific type";
     Blockly.Msg.ARD_WRITE_TO = "to";
 
-    /// Ardublockly instances
+    /// BotlyStudio instances
     Blockly.Msg.NEW_INSTANCE = 'New instance...';
     Blockly.Msg.RENAME_INSTANCE = 'Rename instance...';
     Blockly.Msg.NEW_INSTANCE_TITLE = 'New instance name:';

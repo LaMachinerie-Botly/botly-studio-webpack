@@ -26,6 +26,7 @@ require('./app/api.js')(BotlyApp);
 require('./app/languages.js')(BotlyApp);
 require('./app/agent.js')(BotlyApp);
 require('./app/design.js')(BotlyApp);
+require('./app/assistant.js')(BotlyApp);
 require('./app/toolbox.js')(BotlyApp);
 require('./app/blockly.js')(BotlyApp);
 require('./app/plugins.js')(BotlyApp);
@@ -34,17 +35,17 @@ require('./app/floatingbuttons.js')(BotlyApp);
 require('./app/programmingLanguages.js')(BotlyApp);
 
 var FileSaver = require('file-saver');
+BotlyApp.Lang.preload();
 
-require('./locales/fr.js')(BotlyApp)
-
-BotlyApp.init = function () {
+BotlyApp.init = function() {
     // Lang init must run first for the rest of the page to pick the right msgs
+    BotlyApp.Lang.init();
     BotlyApp.Toolbox.changeToolbox();
 
-    BotlyApp.Lang.init();
     BotlyApp.Difficulty.init();
     BotlyApp.PL.init();
     BotlyApp.Plugins.import();
+    BotlyApp.Assistant.init();
     // Inject Blockly into content_blocks and fetch additional blocks
     BotlyApp.Blockly.injectBlockly(document.getElementById('content_blocks'), BotlyApp.Toolbox.TOOLBOX_XML, '../media/');
     //BotlyStudio.importExtraBlocks();
@@ -62,11 +63,11 @@ BotlyApp.init = function () {
         Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom('<xml><block type="start" deletable="false" movable="true"><mutation name="true"></mutation></block></xml>'), BotlyApp.Blockly.workspace);
         BotlyApp.Blockly.workspace.getAllBlocks()[0].updateShape_();
     }
-    setTimeout(function () { BotlyApp.renderContent(); }, 1000);
+    setTimeout(function() { BotlyApp.renderContent(); }, 1000);
 };
 
 /** Binds functions to each of the buttons, nav links, and related. */
-BotlyApp.bindActionFunctions = function () {
+BotlyApp.bindActionFunctions = function() {
 
     var elems = document.getElementById('slide-out');
     var sidenav = M.Sidenav.getInstance(elems);
@@ -78,29 +79,29 @@ BotlyApp.bindActionFunctions = function () {
     BotlyApp.bindClick_('button_delete', BotlyApp.discardAllBlocks);
 
     // Side menu buttons, they also close the side menu
-    BotlyApp.bindClick_('menu_load', function () {
+    BotlyApp.bindClick_('menu_load', function() {
         BotlyApp.loadUserXmlFile();
         sidenav.close();
     });
 
-    BotlyApp.bindClick_('menu_save', function () {
+    BotlyApp.bindClick_('menu_save', function() {
         BotlyApp.saveXmlFile();
         sidenav.close();
     });
 
-    BotlyApp.bindClick_('menu_delete', function () {
+    BotlyApp.bindClick_('menu_delete', function() {
         BotlyApp.discardAllBlocks();
         sidenav.close();
     });
 
-    BotlyApp.bindClick_('menu_settings', function () {
+    BotlyApp.bindClick_('menu_settings', function() {
         var instance = M.Modal.getInstance(document.getElementById("settings_dialog"));
         sidenav.close();
         instance.open();
     });
 };
 
-BotlyApp.changeTabs = function () {
+BotlyApp.changeTabs = function() {
     var array = [];
     array.push(document.getElementById('plugin0Head'));
     array.push(document.getElementById('plugin1Head'));
@@ -114,21 +115,21 @@ BotlyApp.changeTabs = function () {
 }
 
 /** Sets the BotlyApp server IDE setting to upload and sends the code. */
-BotlyApp.ideSendUpload = function () {
+BotlyApp.ideSendUpload = function() {
     BotlyApp.shortMessage(BotlyApp.getLocalStr('verifyingSketch'));
     BotlyApp.resetIdeOutputContent();
     BotlyApp.sendCode("upload");
 };
 
 /** Sets the BotlyApp server IDE setting to verify and sends the code. */
-BotlyApp.ideSendVerify = function () {
+BotlyApp.ideSendVerify = function() {
     BotlyApp.shortMessage(BotlyApp.getLocalStr('verifyingSketch'));
     BotlyApp.resetIdeOutputContent();
     BotlyApp.sendCode("compile");
 };
 
 /** Sets the BotlyApp server IDE setting to open and sends the code. */
-BotlyApp.ideSendOpen = function () {
+BotlyApp.ideSendOpen = function() {
     BotlyApp.shortMessage(BotlyApp.getLocalStr('openingSketch'));
     BotlyApp.resetIdeOutputContent();
     BotlyApp.sendCode("openIDE");
@@ -141,12 +142,12 @@ BotlyApp.ideSendOpen = function () {
  * Shows a loader around the button, blocking it (unblocked upon received
  * message from server).
  */
-BotlyApp.sendCode = function (flag) {
+BotlyApp.sendCode = function(flag) {
     BotlyApp.largeIdeButtonSpinner(true);
     BotlyAgent.sendSketchToServer(BotlyApp.generateArduino(), flag);
 };
 
-BotlyApp.downloadCode = function () {
+BotlyApp.downloadCode = function() {
     BotlyApp.saveTextFileAs(
         document.getElementById('sketch_name').value + '.ino',
         BotlyApp.generateArduino());
@@ -158,10 +159,10 @@ BotlyApp.downloadCode = function () {
  * Blockly workspace.
  * @param {!string} xmlFile Server location of the XML file to load.
  */
-BotlyApp.loadServerXmlFile = function (xmlFile) {
-    var loadXmlfileAccepted = function () {
+BotlyApp.loadServerXmlFile = function(xmlFile) {
+    var loadXmlfileAccepted = function() {
         // loadXmlBlockFile loads the file asynchronously and needs a callback
-        var loadXmlCb = function (sucess) {
+        var loadXmlCb = function(sucess) {
             if (sucess) {
                 BotlyApp.renderContent();
             } else {
@@ -171,7 +172,7 @@ BotlyApp.loadServerXmlFile = function (xmlFile) {
                     false);
             }
         };
-        var connectionErrorCb = function () { };
+        var connectionErrorCb = function() {};
         BotlyApp.loadXmlBlockFile(xmlFile, loadXmlCb, connectionErrorCb);
     };
 
@@ -189,9 +190,9 @@ BotlyApp.loadServerXmlFile = function (xmlFile) {
  * Loads an XML file from the users file system and adds the blocks into the
  * Blockly workspace.
  */
-BotlyApp.loadUserXmlFile = function () {
+BotlyApp.loadUserXmlFile = function() {
     // Create File Reader event listener function
-    var parseInputXMLfile = function (e) {
+    var parseInputXMLfile = function(e) {
         var xmlFile = e.target.files[0];
         var filename = xmlFile.name;
         var extensionPosition = filename.lastIndexOf('.');
@@ -200,7 +201,7 @@ BotlyApp.loadUserXmlFile = function () {
         }
 
         var reader = new FileReader();
-        reader.onload = function () {
+        reader.onload = function() {
             var success = BotlyApp.Blockly.replaceBlocksfromXml(reader.result);
             if (success) {
                 BotlyApp.renderContent();
@@ -238,7 +239,7 @@ BotlyApp.loadUserXmlFile = function () {
  * Creates an XML file containing the blocks from the Blockly workspace and
  * prompts the users to save it into their local file system.
  */
-BotlyApp.saveXmlFile = function () {
+BotlyApp.saveXmlFile = function() {
     BotlyApp.saveTextFileAs(
         document.getElementById('sketch_name').value + '.xml',
         BotlyApp.Blockly.generateXml());
@@ -249,7 +250,7 @@ BotlyApp.saveXmlFile = function () {
  * the Blockly workspace and prompts the users to save it into their local file
  * system.
  */
-BotlyApp.saveSketchFile = function () {
+BotlyApp.saveSketchFile = function() {
     BotlyApp.saveTextFileAs(
         document.getElementById('sketch_name').value + '.ino',
         BotlyApp.generateArduino());
@@ -261,7 +262,7 @@ BotlyApp.saveSketchFile = function () {
  * @param {!string} fileName Name for the file to be saved.
  * @param {!string} content Text datd to be saved in to the file.
  */
-BotlyApp.saveTextFileAs = function (fileName, content) {
+BotlyApp.saveTextFileAs = function(fileName, content) {
     var blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
     FileSaver.saveAs(blob, fileName);
 };
@@ -270,7 +271,7 @@ BotlyApp.saveTextFileAs = function (fileName, content) {
  * Retrieves the Settings from BotlyAppServer to populates the form data
  * and opens the Settings modal dialog.
  */
-BotlyApp.openSettings = function () {
+BotlyApp.openSettings = function() {
     // Language menu only set on page load within BotlyApp.initLanguage()
     BotlyApp.openSettingsModal();
 };
@@ -278,7 +279,7 @@ BotlyApp.openSettings = function () {
 /**
 
 /** Populate the workspace blocks with the XML written in the XML text area. */
-BotlyApp.XmlTextareaToBlocks = function () {
+BotlyApp.XmlTextareaToBlocks = function() {
     var success = BotlyApp.replaceBlocksfromXml(
         document.getElementById('content_xml').value);
     if (success) {
@@ -302,7 +303,7 @@ BotlyApp.PREV_OUTPUT_CODE_ = 'void setup() {\n\n}\n\n\nvoid loop() {\n\n}';
  * Populate the Arduino Code and Blocks XML panels with content generated from
  * the blocks.
  */
-BotlyApp.renderContent = function () {
+BotlyApp.renderContent = function() {
     // Only regenerate the code if a block is not being dragged
 
     if (BotlyApp.Blockly.blocklyIsDragging()) return;
@@ -327,7 +328,7 @@ BotlyApp.TOOLBAR_SHOWING_ = true;
  * Toggles the blockly toolbox and the BotlyApp toolbox button On and Off.
  * Uses namespace member variable TOOLBAR_SHOWING_ to toggle state.
  */
-BotlyApp.toogleToolbox = function () {
+BotlyApp.toogleToolbox = function() {
     if (BotlyApp.TOOLBAR_SHOWING_) {
         BotlyApp.blocklyCloseToolbox();
         BotlyApp.displayToolbox(false);
@@ -338,7 +339,7 @@ BotlyApp.toogleToolbox = function () {
 };
 
 /** @return {boolean} Indicates if the toolbox is currently visible. */
-BotlyApp.isToolboxVisible = function () {
+BotlyApp.isToolboxVisible = function() {
     return BotlyApp.TOOLBAR_SHOWING_;
 };
 
@@ -347,14 +348,14 @@ BotlyApp.isToolboxVisible = function () {
  * Initialises any additional BotlyApp extensions.
  * TODO: Loads the examples into the examples modal
  */
-BotlyApp.importExtraBlocks = function () {
+BotlyApp.importExtraBlocks = function() {
     /**
      * Parses the JSON data to find the block and languages js files.
      * @param {jsonDataObj} jsonDataObj JSON in JavaScript object format, null
      *     indicates an error occurred.
      * @return {undefined} Might exit early if response is null.
      */
-    var jsonDataCb = function (jsonDataObj) {
+    var jsonDataCb = function(jsonDataObj) {
         if (jsonDataObj.categories !== undefined) {
             var head = document.getElementsByTagName('head')[0];
             for (var catDir in jsonDataObj.categories) {
@@ -380,7 +381,7 @@ BotlyApp.importExtraBlocks = function () {
                         blockExtensionJsLoad.src = '../blocks/' + catDir + '/extensions.js';
                         head.appendChild(blockExtensionJsLoad);
                         // Add function to scheduler as lazy loading has to complete first
-                        setTimeout(function (category, extension) {
+                        setTimeout(function(category, extension) {
                             var extensionNamespaces = extension.split('.');
                             var extensionCall = window;
                             var invalidFunc = false;
@@ -396,7 +397,7 @@ BotlyApp.importExtraBlocks = function () {
                             }
                             if (invalidFunc) {
                                 throw 'Blocks ' + category.categoryName + ' extension "' +
-                                extension + '" is not a valid function.';
+                                    extension + '" is not a valid function.';
                             } else {
                                 extensionCall();
                             }
@@ -412,20 +413,20 @@ BotlyApp.importExtraBlocks = function () {
 };
 
 /** Opens a modal with a list of categories to add or remove to the toolbox */
-BotlyApp.openExtraCategoriesSelect = function () {
+BotlyApp.openExtraCategoriesSelect = function() {
     /**
      * Parses the JSON data from the server into a list of additional categories.
      * @param {jsonDataObj} jsonDataObj JSON in JavaScript object format, null
      *     indicates an error occurred.
      * @return {undefined} Might exit early if response is null.
      */
-    var jsonDataCb = function (jsonDataObj) {
+    var jsonDataCb = function(jsonDataObj) {
         var htmlContent = document.createElement('div');
         if (jsonDataObj.categories !== undefined) {
             for (var catDir in jsonDataObj.categories) {
                 // Function required to maintain each loop variable scope separated
-                (function (cat) {
-                    var clickBind = function (tickValue) {
+                (function(cat) {
+                    var clickBind = function(tickValue) {
                         if (tickValue) {
                             var catDom = (new DOMParser()).parseFromString(
                                 cat.toolbox.join(''), 'text/xml').firstChild;
@@ -447,7 +448,7 @@ BotlyApp.openExtraCategoriesSelect = function () {
 };
 
 /** Informs the user that the selected function is not yet implemented. */
-BotlyApp.notImplemented = function () {
+BotlyApp.notImplemented = function() {
     BotlyApp.shortMessage('Function not yet implemented');
 };
 
@@ -460,7 +461,7 @@ BotlyApp.notImplemented = function () {
  * @param {string=|function=} callback If confirm option is selected this would
  *     be the function called when clicked 'OK'.
  */
-BotlyApp.alertMessage = function (title, body, confirm, callback) {
+BotlyApp.alertMessage = function(title, body, confirm, callback) {
     BotlyApp.materialAlert(title, body, confirm, callback);
 };
 
@@ -468,7 +469,7 @@ BotlyApp.alertMessage = function (title, body, confirm, callback) {
  * Interface to displays a short message, which disappears after a time out.
  * @param {!string} message Text to be temporarily displayed.
  */
-BotlyApp.shortMessage = function (message) {
+BotlyApp.shortMessage = function(message) {
     BotlyApp.MaterialToast(message);
 };
 
@@ -479,12 +480,12 @@ BotlyApp.shortMessage = function (message) {
  * @param {!function} func Event handler to bind.
  * @private
  */
-BotlyApp.bindClick_ = function (el, func) {
+BotlyApp.bindClick_ = function(el, func) {
     if (typeof el == 'string') {
         el = document.getElementById(el);
     }
     // Need to ensure both, touch and click, events don't fire for the same thing
-    var propagateOnce = function (e) {
+    var propagateOnce = function(e) {
         e.stopPropagation();
         e.preventDefault();
         func();

@@ -1,7 +1,6 @@
 Blockly.Msg = Blockly.Msg || require('node-blockly/browser').Msg;
 
 module.exports = function(app) {
-
     app.LOCALISED_TEXT = {
         translationLanguage: "Français",
         title: "Botly Studio",
@@ -99,7 +98,8 @@ module.exports = function(app) {
         botlyStop: "S'arrêter pendant",
         botlyTurnAdv: "Tourner de",
         botlyAndGo: " puis avancer de",
-        botlyCalibration: "Calibrer le robot :"
+        botlyCalibration: "Calibrer le robot :",
+        botlyProximity: "Botly détecte quelque chose devant lui"
     };
 
 

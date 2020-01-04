@@ -1,7 +1,6 @@
 Blockly.Msg = Blockly.Msg || require('node-blockly/browser').Msg;
 
 module.exports = function(app) {
-
     app.LOCALISED_TEXT = {
         translationLanguage: 'Español',
         title: "Botly Studio",
@@ -88,6 +87,26 @@ module.exports = function(app) {
         catAudio: "Audio",
         catMotors: "Motores",
         catComms: "Comunicación",
+        /*Botly category*/
+        botlyStartSetup: "Initialize", //?
+        botlyStartTitle: "Empiezar", //
+        botlyStartMainLoop: "Bucle principal",
+        botlyStartTooltip: "Bloque principal",
+        botlyForward: "Go forward",
+        botlyBackward: "Go Backkward",
+        botlyTurn: "Turn",
+        botlyRight: "right",
+        botlyLeft: "left",
+        botlyBy: "by",
+        botlyPenUp: "Raise",
+        botlyPenDown: "Lower",
+        boltyPen: "pen",
+        botlyPenAdv: "Lower the pen",
+        botlyStop: "Wait during",
+        botlyTurnAdv: "Turn by",
+        botlyAndGo: " and go forward by",
+        botlyCalibration: "Calibrate robot :",
+        botlyProximity: "Botly detect something in front of him"
     };
 
     Blockly.Msg.ADD_COMMENT = "Añadir comentario";
