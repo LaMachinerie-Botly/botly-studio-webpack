@@ -38,6 +38,7 @@
                 </shadow>
             </value>
         </block>
+        <block type="botly_proximity"></block>
         <block type="botly_calibration"></block>
     </category>
     <sep></sep>

@@ -12,6 +12,26 @@ require('../icons/logo.ico')
 
 window.Blockly = require('node-blockly/browser')
 
+
+
+import en from './locales/en.js'
+import es from './locales/es.js'
+import fr from './locales/fr.js'
+import nl from './locales/nl.js'
+import pt from './locales/pt.js'
+
+import En from 'node-blockly/lib/i18n/en';
+import Es from 'node-blockly/lib/i18n/es';
+import Fr from 'node-blockly/lib/i18n/fr';
+import Nl from 'node-blockly/lib/i18n/nl';
+import Pt from 'node-blockly/lib/i18n/pt';
+
+Blockly.setLocale(Fr)
+
+var BotlyApp = require('./botlystudio.js')
+window.BotlyAPI = BotlyApp.API;
+window.Botly = BotlyApp;
+
 require('./blockly/arduino.js')(window.Blockly)
 require('./blockly/blocks/arduino/io.js')(window.Blockly);
 require('./blockly/blocks/arduino/map.js')(window.Blockly);
@@ -33,29 +53,6 @@ require('./blockly/generators/arduino/serial.js')(window.Blockly);
 require('./blockly/generators/arduino/text.js')(window.Blockly);
 require('./blockly/generators/arduino/time.js')(window.Blockly);
 require('./blockly/generators/arduino/variables.js')(window.Blockly);
-
-
-
-
-import en from './locales/en.js'
-import es from './locales/es.js'
-import fr from './locales/fr.js'
-import nl from './locales/nl.js'
-import pt from './locales/pt.js'
-
-
-
-import En from 'node-blockly/lib/i18n/en';
-import Es from 'node-blockly/lib/i18n/es';
-import Fr from 'node-blockly/lib/i18n/fr';
-import Nl from 'node-blockly/lib/i18n/nl';
-import Pt from 'node-blockly/lib/i18n/pt';
-
-Blockly.setLocale(Fr)
-
-var BotlyApp = require('./botlystudio.js')
-window.BotlyAPI = BotlyApp.API;
-window.Botly = BotlyApp;
 
 require('./blockly/blocks/botly/botly-blocks.js')(window.Blockly, window.Botly.LOCALISED_TEXT)
 require('./blockly/blocks/botly/botly-generator.js')(window.Blockly)

@@ -147,7 +147,6 @@ module.exports = function(Blockly, MSG) {
             this.setHelpUrl("");
         },
         onchange: function(e) {
-            console.log(e);
             var pBlock = this.getParent();
             if (pBlock)
                 if (e.blockId == pBlock.id || e.newValue == pBlock.id) {
@@ -169,7 +168,7 @@ module.exports = function(Blockly, MSG) {
                     [MSG["botlyForward"], "avancer"],
                     [MSG["botlyBackward"], "reculer"]
                 ]), 'DIR')
-                .appendField("de")
+                .appendField(MSG["botlyBy"])
                 .appendField(
                     new Blockly.FieldTextInput(
                         '50', Blockly.FieldTextInput.numberValidator),
@@ -364,6 +363,24 @@ module.exports = function(Blockly, MSG) {
             this.setTooltip("");
             this.setHelpUrl("");
             this.setStyle("hat_blocks");
+        }
+    };
+
+
+    Blockly.Blocks['botly_proximity'] = {
+        init: function() {
+            this.appendDummyInput()
+                .appendField(new Blockly.FieldLabelSerializable("le robot"))
+                .appendField(new Blockly.FieldDropdown([
+                    ["ne détecte pas", "NON"],
+                    ["détecte", "OUI"]
+                ]), "ETAT")
+                .appendField(new Blockly.FieldLabelSerializable("l'obstacle"));
+            this.setInputsInline(true);
+            this.setOutput(true, null);
+            this.setColour(230);
+            this.setTooltip("");
+            this.setHelpUrl("");
         }
     };
 

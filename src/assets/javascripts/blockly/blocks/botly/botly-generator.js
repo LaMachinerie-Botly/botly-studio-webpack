@@ -198,6 +198,16 @@ module.exports = function(Blockly) {
         return code;
     };
 
+    Blockly.Arduino['botly_proximity'] = function(block) {
+        var dropdown_non = block.getFieldValue('ETAT');
+        var code = "";
+        if (dropdown_non == "NON")
+            code = '!robot.proximite()';
+        else if (dropdown_non == "OUI")
+            code = 'robot.proximite()';
+
+        return [code, Blockly.Arduino.ORDER_ATOMIC];
+    };
 
 
     /*************************************
@@ -229,7 +239,7 @@ module.exports = function(Blockly) {
 
     Blockly.Python['botly_stop'] = function(block) {
         var stop_time = block.getFieldValue('time');
-        var code = 'stop(' + stop_time + ');\n';
+        var code = 'stop(' + stop_time + ')\n';
         return code;
     };
 
@@ -237,7 +247,7 @@ module.exports = function(Blockly) {
     Blockly.Python['botly_turn_go'] = function(block) {
         var turn_go_angle = block.getFieldValue('angle');
         var turn_go_distance = block.getFieldValue('distance');
-        var code = 'turnGo(' + turn_go_angle + ',' + turn_go_distance + ');\n';
+        var code = 'turnGo(' + turn_go_angle + ',' + turn_go_distance + ')\n';
         return code;
     };
 
@@ -246,20 +256,20 @@ module.exports = function(Blockly) {
         // Generate JavaScript for moving forward or backwards.
         var value = block.getFieldValue('VALUE');
         return block.getFieldValue('DIR') +
-            '(' + value + ');\n';
+            '(' + value + ')\n';
     };
 
     Blockly.Python['botly_rotation'] = function(block) {
         // Generate JavaScript for turning left or right.
         var value = block.getFieldValue('VALUE');
         return block.getFieldValue('DIR') +
-            '(' + value + ');\n';
+            '(' + value + ')\n';
     };
 
     Blockly.Python['botly_crayon'] = function(block) {
         // Generate JavaScript for pen up/down.
         return block.getFieldValue('PEN') +
-            '();\n';
+            '()\n';
     };
 
 
@@ -267,9 +277,9 @@ module.exports = function(Blockly) {
         var state = Blockly.Python.valueToCode(block, 'PEN', Blockly.Arduino.ORDER_ATOMIC);
         // Generate JavaScript for pen up/down.
         if (state == 'true') {
-            return 'poserCrayon();\n';
+            return 'poserCrayon()\n';
         } else {
-            return 'leverCrayon();\n';
+            return 'leverCrayon()\n';
         }
     };
 
@@ -278,14 +288,14 @@ module.exports = function(Blockly) {
         var value = Blockly.Python.valueToCode(block, 'dist', Blockly.Arduino.ORDER_ATOMIC);
 
         return block.getFieldValue('DIR') +
-            '(' + value + ');\n';
+            '(' + value + ')\n';
     };
 
     Blockly.Python['botly_rotation_adv'] = function(block) {
         // Generate JavaScript for turning left or right.
         var value = Blockly.Python.valueToCode(block, 'angle', Blockly.Arduino.ORDER_ATOMIC);
         return block.getFieldValue('DIR') +
-            '(' + value + ');\n';
+            '(' + value + ')\n';
     };
 
     Blockly.Python['botly_calibration'] = function(block) {
@@ -293,9 +303,20 @@ module.exports = function(Blockly) {
         var number_rad_to_step = block.getFieldValue('RAD_TO_STEP');
         var code;
 
-        code = 'setCalibration(' + number_mm_to_step + ',' + number_rad_to_step + ');\n';
+        code = 'setCalibration(' + number_mm_to_step + ',' + number_rad_to_step + ')\n';
 
         return code;
+    };
+
+    Blockly.Python['botly_proximity'] = function(block) {
+        var dropdown_non = block.getFieldValue('ETAT');
+        var code = "";
+        if (dropdown_non = "NON")
+            code = 'not robot.proximite()';
+        else
+            code = 'robot.proximite()';
+
+        return [code, Blockly.Python.ORDER_ATOMIC];
     };
 
 
@@ -407,6 +428,17 @@ module.exports = function(Blockly) {
             code += '//Loop :\nwhile(true){\n' + branch + '}';
         }
         return code + '\n';
+    };
+
+    Blockly.JavaScript['botly_proximity'] = function(block) {
+        var dropdown_non = block.getFieldValue('ETAT');
+        var code = "";
+        if (dropdown_non == "NON")
+            code = '!robot.proximite()';
+        else if (dropdown_non == "OUI")
+            code = 'robot.proximite()';
+
+        return [code, Blockly.JavaScript.ORDER_ATOMIC];
     };
 
     /**
