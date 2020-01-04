@@ -29,6 +29,7 @@
             </a>
             <!-- Horizontal Navbar links only shown on large resolutions -->
             <ul id="nav-mobile" class="right hide-on-med-and-down">
+
                 <li>
                     <a href="#" id="button_load">
                         <i class="material-icons left">folder</i>
@@ -48,9 +49,23 @@
                         <span class="translatable_deleteAll">Tout Supprimer</span>
                     </a>
                 </li>
+                <li>
+                    <div class="direction-top">
+                        <a id="info" class="waves-effect waves-light btn btn-floating"><i class="material-icons">bubble_chart</i></a>
+                    </div>
+
+                </li>
             </ul>
         </div>
     </nav>
+
+    <!-- Assistant -->
+    <div class="tap-target arduino_teal" data-target="info" style="text-align: right; line-height: 130%; color : white;">
+        <div class="tap-target-content">
+            <h5>Merci d'avoir testé la Beta</h5>
+            <p>Vous utilisez actuellement une version de Botly-Studio toujours en developpement. Celle-ci peut contenir encore quelques bugs. N'hésitez pas à nous faire vos retours pour les signaler</p>
+        </div>
+    </div>
 
     <!-- Sidebar navigation -->
     <ul id="slide-out" class="sidenav">
