@@ -8,6 +8,9 @@
 
 module.exports = function(Blockly, MSG) {
     /** Common HSV hue for all blocks in this category. */
+
+    //onchange : changeEvent
+
     //Blockly.Blocks.botly.HUE = 60;
     Blockly.FieldAngle.OFFSET = 90;
     Blockly.Blocks['start_mutator_setup'] = {
@@ -147,6 +150,12 @@ module.exports = function(Blockly, MSG) {
             this.setHelpUrl("");
         },
         onchange: function(e) {
+            let surround = this.getSurroundParent()
+            if (surround == undefined)
+                this.setDisabled(true);
+            else
+                this.setDisabled(false);
+
             var pBlock = this.getParent();
             if (pBlock)
                 if (e.blockId == pBlock.id || e.newValue == pBlock.id) {
@@ -179,6 +188,13 @@ module.exports = function(Blockly, MSG) {
             this.setColour(230);
             this.setTooltip("");
             this.setHelpUrl("");
+        },
+        onchange: function(e) {
+            let surround = this.getSurroundParent()
+            if (surround == undefined && this.isInFlyout == false)
+                this.setDisabled(true);
+            else
+                this.setDisabled(false);
         }
     };
 
@@ -201,6 +217,12 @@ module.exports = function(Blockly, MSG) {
             this.setHelpUrl("");
         },
         onchange: function(e) {
+            let surround = this.getSurroundParent()
+            if (surround == undefined && this.isInFlyout == false)
+                this.setDisabled(true);
+            else
+                this.setDisabled(false);
+
             if (e) {
                 if (e.blockId == this.id || e.newValue == this.id) {
                     var dir = this.getFieldValue('DIR');
@@ -233,6 +255,13 @@ module.exports = function(Blockly, MSG) {
             this.setInputsInline(true);
             this.setTooltip("");
             this.setHelpUrl("");
+        },
+        onchange: function(e) {
+            let surround = this.getSurroundParent()
+            if (surround == undefined && this.isInFlyout == false)
+                this.setDisabled(true);
+            else
+                this.setDisabled(false);
         }
     };
 
@@ -256,6 +285,13 @@ module.exports = function(Blockly, MSG) {
             this.setTooltip("");
             this.setInputsInline(true);
             this.setHelpUrl("");
+        },
+        onchange: function(e) {
+            let surround = this.getSurroundParent()
+            if (surround == undefined && this.isInFlyout == false)
+                this.setDisabled(true);
+            else
+                this.setDisabled(false);
         }
     };
 
@@ -275,6 +311,13 @@ module.exports = function(Blockly, MSG) {
             this.setColour(180);
             this.setTooltip("");
             this.setHelpUrl("");
+        },
+        onchange: function(e) {
+            let surround = this.getSurroundParent()
+            if (surround == undefined && this.isInFlyout == false)
+                this.setDisabled(true);
+            else
+                this.setDisabled(false);
         }
     };
 
@@ -292,6 +335,13 @@ module.exports = function(Blockly, MSG) {
             this.setTooltip("");
             this.setHelpUrl("");
             this.setInputsInline(true);
+        },
+        onchange: function(e) {
+            let surround = this.getSurroundParent()
+            if (surround == undefined && this.isInFlyout == false)
+                this.setDisabled(true);
+            else
+                this.setDisabled(false);
         }
     };
 
@@ -313,6 +363,13 @@ module.exports = function(Blockly, MSG) {
             this.setInputsInline(true);
             this.setTooltip("");
             this.setHelpUrl("");
+        },
+        onchange: function(e) {
+            let surround = this.getSurroundParent()
+            if (surround == undefined && this.isInFlyout == false)
+                this.setDisabled(true);
+            else
+                this.setDisabled(false);
         }
     };
 
@@ -329,6 +386,13 @@ module.exports = function(Blockly, MSG) {
             this.setTooltip("");
             this.setInputsInline(true);
             this.setHelpUrl("");
+        },
+        onchange: function(e) {
+            let surround = this.getSurroundParent()
+            if (surround == undefined && this.isInFlyout == false)
+                this.setDisabled(true);
+            else
+                this.setDisabled(false);
         }
     };
 
@@ -346,6 +410,13 @@ module.exports = function(Blockly, MSG) {
             this.setColour(60);
             this.setTooltip("");
             this.setHelpUrl("");
+        },
+        onchange: function(e) {
+            let surround = this.getSurroundParent()
+            if (surround == undefined && this.isInFlyout == false)
+                this.setDisabled(true);
+            else
+                this.setDisabled(false);
         }
     };
 
@@ -380,6 +451,28 @@ module.exports = function(Blockly, MSG) {
             this.setOutput(true, null);
             this.setColour(230);
             this.setTooltip("");
+            this.setHelpUrl("");
+        },
+        onchange: function(e) {
+            let surround = this.getSurroundParent()
+            if (surround == undefined && this.isInFlyout == false)
+                this.setDisabled(true);
+            else
+                this.setDisabled(false);
+        }
+    };
+
+    Blockly.Blocks['botly_type'] = {
+        init: function() {
+            this.appendDummyInput()
+                .appendField("J'utilise le robot qui")
+                .appendField(new Blockly.FieldDropdown([
+                    ["dessine sur la table", "TABLE"],
+                    ["dessine sur le mur", "WALL"]
+                ]), "Robot");
+            this.setColour(120);
+            this.setTooltip("");
+            this.setStyle("hat_blocks");
             this.setHelpUrl("");
         }
     };
@@ -425,7 +518,6 @@ function decomposeMsg(msg) {
         valueId = msg.substring(i + 1, i + 2);
         suffix = msg.substring(i + 2);
     }
-
 
 
     return { pre: prefix, val: valueId, suf: suffix }

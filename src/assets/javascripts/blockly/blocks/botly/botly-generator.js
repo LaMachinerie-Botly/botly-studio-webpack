@@ -5,9 +5,10 @@ module.exports = function(Blockly) {
         Blockly.Arduino.addInclude('Botly', '//Importation de la librarie Botly : \n#include <Botly.h>');
         Blockly.Arduino.addDeclaration('Botly', '//Déclaration du robot :\nBotly robot;');
 
-        var setupCode = '//Initialisation du robot :\n  robot.init();';
+        var setupCode = '//Initialisation du robot :\n  robot.init();\n';
         Blockly.Arduino.addSetup('Botly', setupCode, true);
-        Blockly.Arduino.addSetup('Statement', '\n' + Blockly.Arduino.statementToCode(block, 'SETUP'), true);
+        if (Blockly.Arduino.statementToCode(block, 'SETUP') != "")
+            Blockly.Arduino.addSetup('Statement', "//Blocs d'initialisation\n" + Blockly.Arduino.statementToCode(block, 'SETUP'), true);
         //-------------------------------------------------------------------
         var code = Blockly.Arduino.statementToCode(block, 'LOOP');
         return code;
@@ -21,16 +22,7 @@ module.exports = function(Blockly) {
 
     Blockly.Arduino['botly_turn_go'] = function(block) {
         var turn_go_angle = Blockly.Arduino.valueToCode(block, 'angle', Blockly.Arduino.ORDER_ATOMIC);
-
         var turn_go_distance = Blockly.Arduino.valueToCode(block, 'dist', Blockly.Arduino.ORDER_ATOMIC);
-
-        //-------------------------------------------------------------------
-        Blockly.Arduino.addInclude('Botly', '//Importation de la librarie Botly : \n#include <Botly.h>');
-        Blockly.Arduino.addDeclaration('Botly', '//Déclaration du robot :\nBotly robot;');
-
-        var setupCode = '//Initialisation du robot :\n  robot.init();';
-        Blockly.Arduino.addSetup('Botly', setupCode, true);
-        //-------------------------------------------------------------------
         var code = 'robot.turnGoDegree(' + turn_go_angle + ',' + turn_go_distance + ');\n';
         return code;
     };
@@ -39,13 +31,6 @@ module.exports = function(Blockly) {
         var value_distance = block.getFieldValue('VALUE');
         var dropdown_type = block.getFieldValue('DIR');
         var code;
-        //-------------------------------------------------------------------
-        Blockly.Arduino.addInclude('Botly', '//Importation de la librarie Botly : \n#include <Botly.h>');
-        Blockly.Arduino.addDeclaration('Botly', '//Déclaration du robot :\nBotly robot;');
-
-        var setupCode = '//Initialisation du robot :\n  robot.init();';
-        Blockly.Arduino.addSetup('Botly', setupCode, true);
-        //-------------------------------------------------------------------
         switch (dropdown_type) {
             case 'avancer':
                 code = 'robot.avancer(' + value_distance + ');\n';
@@ -61,13 +46,6 @@ module.exports = function(Blockly) {
         var value_angle = block.getFieldValue('VALUE');
         var dropdown_type = block.getFieldValue('DIR');
         var code;
-        //-------------------------------------------------------------------
-        Blockly.Arduino.addInclude('Botly', '//Importation de la librarie Botly : \n#include <Botly.h>');
-        Blockly.Arduino.addDeclaration('Botly', '//Déclaration du robot :\nBotly robot;');
-
-        var setupCode = '//Initialisation du robot :\n  robot.init();';
-        Blockly.Arduino.addSetup('Botly', setupCode, true);
-        //-------------------------------------------------------------------
         switch (dropdown_type) {
             case 'droite':
                 code = 'robot.tournerDroite(' + value_angle + ');\n';
@@ -82,13 +60,6 @@ module.exports = function(Blockly) {
     Blockly.Arduino['botly_crayon'] = function(block) {
         var dropdown_type = block.getFieldValue('PEN');
         var code;
-        //-------------------------------------------------------------------
-        Blockly.Arduino.addInclude('Botly', '//Importation de la librarie Botly : \n#include <Botly.h>');
-        Blockly.Arduino.addDeclaration('Botly', '//Déclaration du robot :\nBotly robot;');
-
-        var setupCode = '//Initialisation du robot :\n  robot.init();';
-        Blockly.Arduino.addSetup('Botly', setupCode, true);
-        //-------------------------------------------------------------------
         switch (dropdown_type) {
             case 'leverCrayon':
                 code = 'robot.leverCrayon();\n';
@@ -107,13 +78,6 @@ module.exports = function(Blockly) {
         var value_distance = Blockly.Arduino.valueToCode(block, 'dist', Blockly.Arduino.ORDER_ATOMIC);
         var dropdown_type = block.getFieldValue('DIR');
         var code;
-        //-------------------------------------------------------------------
-        Blockly.Arduino.addInclude('Botly', '//Importation de la librarie Botly : \n#include <Botly.h>');
-        Blockly.Arduino.addDeclaration('Botly', '//Déclaration du robot :\nBotly robot;');
-
-        var setupCode = '//Initialisation du robot :\n  robot.init();';
-        Blockly.Arduino.addSetup('Botly', setupCode, true);
-        //-------------------------------------------------------------------
         switch (dropdown_type) {
             case 'avancer':
                 code = 'robot.avancer(' + value_distance + ');\n';
@@ -129,13 +93,6 @@ module.exports = function(Blockly) {
         var value_angle = Blockly.Arduino.valueToCode(block, 'angle', Blockly.Arduino.ORDER_ATOMIC);
         var dropdown_type = block.getFieldValue('DIR');
         var code;
-        //-------------------------------------------------------------------
-        Blockly.Arduino.addInclude('Botly', '//Importation de la librarie Botly : \n#include <Botly.h>');
-        Blockly.Arduino.addDeclaration('Botly', '//Déclaration du robot :\nBotly robot;');
-
-        var setupCode = '//Initialisation du robot :\n  robot.init();';
-        Blockly.Arduino.addSetup('Botly', setupCode, true);
-        //-------------------------------------------------------------------
         switch (dropdown_type) {
             case 'droite':
                 code = 'robot.tournerDroite(' + value_angle + ');\n';
@@ -150,13 +107,6 @@ module.exports = function(Blockly) {
     Blockly.Arduino['botly_crayon_adv'] = function(block) {
         var dropdown_type = Blockly.Arduino.valueToCode(block, 'PEN', Blockly.Arduino.ORDER_NONE);
         var code;
-        //-------------------------------------------------------------------
-        Blockly.Arduino.addInclude('Botly', '//Importation de la librarie Botly : \n#include <Botly.h>');
-        Blockly.Arduino.addDeclaration('Botly', '//Déclaration du robot :\nBotly robot;');
-
-        var setupCode = '//Initialisation du robot :\n  robot.init();';
-        Blockly.Arduino.addSetup('Botly', setupCode, true);
-        //-------------------------------------------------------------------
         if (dropdown_type == 'true') {
             code = 'robot.poserCrayon();\n';
         } else {
@@ -168,16 +118,7 @@ module.exports = function(Blockly) {
     Blockly.Arduino['botly_stop_adv'] = function(block) {
         var dropdown_type = Blockly.Arduino.valueToCode(block, 'time', Blockly.Arduino.ORDER_ATOMIC);
         var code;
-        //-------------------------------------------------------------------
-        Blockly.Arduino.addInclude('Botly', '//Importation de la librarie Botly : \n#include <Botly.h>');
-        Blockly.Arduino.addDeclaration('Botly', '//Déclaration du robot :\nBotly robot;');
-
-        var setupCode = '//Initialisation du robot :\n  robot.init();';
-        Blockly.Arduino.addSetup('Botly', setupCode, true);
-        //-------------------------------------------------------------------
-
         code = 'robot.stop(' + dropdown_type + ');\n';
-
         return code;
     };
 
@@ -186,13 +127,7 @@ module.exports = function(Blockly) {
         var number_mm_to_step = block.getFieldValue('MM_TO_STEP');
         var number_rad_to_step = block.getFieldValue('RAD_TO_STEP');
         var code = '';
-        //-------------------------------------------------------------------
-        Blockly.Arduino.addInclude('Botly', '//Importation de la librarie Botly : \n#include <Botly.h>');
-        Blockly.Arduino.addDeclaration('Botly', '//Déclaration du robot :\nBotly robot;');
-
-        var setupCode = '//Initialisation du robot :\n  robot.init();'
-        Blockly.Arduino.addSetup('Botly', setupCode, true);
-        setupCode = 'robot.setCalibration(' + number_mm_to_step + ',' + number_rad_to_step + ');\n';
+        var setupCode = 'robot.setCalibration(' + number_mm_to_step + ',' + number_rad_to_step + ');\n';
         Blockly.Arduino.addSetup('calibration', setupCode, true);
 
         return code;
@@ -207,6 +142,34 @@ module.exports = function(Blockly) {
             code = 'robot.proximite()';
 
         return [code, Blockly.Arduino.ORDER_ATOMIC];
+    };
+
+    Blockly.Arduino['botly_type'] = function(block) {
+        var robot_type = block.getFieldValue('Robot');
+        var setupCode = '';
+
+
+        var type = 'CARTESIAN';
+
+        switch (robot_type) {
+
+            case "TABLE":
+                type = 'CARTESIAN';
+                break;
+            case "WALL":
+                type = 'POLAR';
+                break;
+
+            default:
+                type = 'CARTESIAN';
+                break;
+        }
+
+
+        Blockly.Arduino.addDeclaration('Botly', '//Déclaration du robot :\nBotly robot(' + type + ');', true);
+
+        var code = '';
+        return code;
     };
 
 
@@ -317,6 +280,13 @@ module.exports = function(Blockly) {
             code = 'robot.proximite()';
 
         return [code, Blockly.Python.ORDER_ATOMIC];
+    };
+
+    Blockly.Python['botly_type'] = function(block) {
+        var robot_type = block.getFieldValue('Robot');
+
+        var code = '#Robot type : ' + robot_type + "\n";
+        return code;
     };
 
 
@@ -450,4 +420,12 @@ module.exports = function(Blockly) {
     Blockly.JavaScript['infinite_loop'] = function(block) {
         return 'while(true);\n';
     };
+
+    Blockly.JavaScript['botly_type'] = function(block) {
+        var robot_type = block.getFieldValue('Robot');
+
+        var code = '//Robot type : ' + robot_type + "\n";
+        return code;
+    };
+
 }
