@@ -167,8 +167,8 @@ module.exports = function(Blockly) {
 
         var allDefs = includes.join('\n') + variables.join('\n') +
             definitions.join('\n') + functions.join('\n\n');
-        var setup = 'void setup() {' + setups.join('\n  ') + '\n}\n\n';
-        var loop = 'void loop() {\n  ' + code.replace(/\n/g, '\n  ') + '\n}';
+        var setup = 'void setup() {' + setups.join('\n  ') + '}\n\n';
+        var loop = 'void loop() {\n' + code.replace(/\n/g, '\n') + '}';
         return allDefs + setup + loop;
     };
 
@@ -190,8 +190,8 @@ module.exports = function(Blockly) {
      * @param {!string} declarationTag Identifier for this declaration code.
      * @param {!string} code Code to be added below the includes.
      */
-    Blockly.Arduino.addDeclaration = function(declarationTag, code) {
-        if (Blockly.Arduino.definitions_[declarationTag] === undefined) {
+    Blockly.Arduino.addDeclaration = function(declarationTag, code, overwrite) {
+        if (Blockly.Arduino.definitions_[declarationTag] === undefined || overwrite == true) {
             Blockly.Arduino.definitions_[declarationTag] = code;
         }
     };
