@@ -1,2 +1,0 @@
-cd ..
-./prod-beta.sh
