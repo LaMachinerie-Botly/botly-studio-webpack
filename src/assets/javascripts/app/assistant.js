@@ -1,10 +1,10 @@
-module.exports = function(app) {
+module.exports = function (app) {
     var Assistant = {};
 
-    Assistant.init = function() {
+    Assistant.init = function () {
         var instance = M.TapTarget.init(document.querySelectorAll('.tap-target'), { onOpen: Assistant.onOpen })[0];
-        instance.open();
-        app.bindClick_(document.getElementById("info"), function() {
+        //instance.open();
+        app.bindClick_(document.getElementById("info"), function () {
             if (instance.isOpen) {
                 instance.close();
             } else {
@@ -15,6 +15,6 @@ module.exports = function(app) {
         });
     };
 
-    Assistant.onOpen = function() {}
+    Assistant.onOpen = function () { }
     app.Assistant = Assistant;
 }
