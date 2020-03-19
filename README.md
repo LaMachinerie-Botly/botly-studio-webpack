@@ -5,8 +5,8 @@
 #### Local Install
 
 ```bash
-git clone https://github.com/LaMachinerie/botlyStudio-webApp.git
-cd botlyStudio-webApp
+git clone https://github.com/Botly-Studio/webApp.git
+cd webApp
 npm install
 npm run server
 ```
