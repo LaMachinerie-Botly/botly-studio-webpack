@@ -43,7 +43,8 @@
         "dev": "webpack --mode=development",
         "prod-push": "npm-run-all step*",
         "step1": "cross-env NODE_ENV=production webpack --mode=production --progress",
-        "step2": "bash ./publish.sh"
+        "step2": "bash ./publish.sh",
+        "subInit": "git submodule update --init --recursive"
     },
     "repository": {
         "type": "git",
