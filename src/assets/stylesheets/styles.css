@@ -903,3 +903,7 @@ body {
     width: 100% !important;
     background-color: white !important;
 }
+
+.visibility {
+    display: none;
+}

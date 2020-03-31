@@ -13,6 +13,45 @@ module.exports = function (app) {
             }
 
         });
+
+        app.bindClick_("assistant-button", Assistant.buttonCallback);
+
+        Assistant.setHeader("Nouvelle vidéo !");
+        Assistant.setText("Bienvenu sur l’interface Botly-Studio ! Si vous arrivez ici pour la première fois, nous vous invitons à regarder ces quelques tutoriels de présentation et de prise en main de l’interface Botly-Studio");
+        Assistant.setButton("Clique ici", "link", function(){
+                var win = window.open("https://botly.lamachinerie.org/le-logiciel/botly-studio-en-ligne/tutoriels-en-vidéos", '_blank');
+                win.focus();
+            }
+        );
+    };
+
+    Assistant.setHeader = function(text){
+        document.getElementById("assistant-header").innerHTML = text;
+    };
+
+    Assistant.setText = function(text){
+        document.getElementById("assistant-text").innerHTML = text;
+    };
+
+    Assistant.setButton = function(text, icon, callback){
+        document.getElementById("assistant-button").className = "center waves-effect waves-light btn";
+        document.getElementById('assistant-button').innerHTML = text + " <i class='material-icons left'>" + icon + "</i>";
+        Assistant.buttonCallback = callback;
+        app.bindClick_("assistant-button", Assistant.buttonCallback);
+    };
+
+    Assistant.buttonCallback = function(){};
+
+    Assistant.hideButton = function(){
+        document.getElementById("assistant-button").className = "visibility";
+    };
+
+    Assistant.hideImage = function(){
+        document.getElementById("assistant-image").className = "visibility";
+    };
+
+    Assistant.setImage = function(path){
+        document.getElementById("assistant-image");
     };
 
     Assistant.onOpen = function () { }
