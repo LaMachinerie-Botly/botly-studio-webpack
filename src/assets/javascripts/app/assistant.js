@@ -3,7 +3,7 @@ module.exports = function (app) {
 
     Assistant.init = function () {
         var instance = M.TapTarget.init(document.querySelectorAll('.tap-target'), { onOpen: Assistant.onOpen })[0];
-        //instance.open();
+        instance.open();
         app.bindClick_(document.getElementById("info"), function () {
             if (instance.isOpen) {
                 instance.close();
