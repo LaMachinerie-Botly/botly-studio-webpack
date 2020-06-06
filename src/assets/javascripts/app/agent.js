@@ -283,7 +283,7 @@ module.exports = function(app) {
         //console.log(codeUTF);
         $.ajax({
             type: "POST",
-            url: "http://62.4.16.227/compile",
+            url: "https://62.4.16.227/compile",
             data: { data: code },
             success: successCb,
             timeout: 10000,
