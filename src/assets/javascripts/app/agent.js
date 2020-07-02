@@ -125,7 +125,7 @@ module.exports = function(app) {
 
     Agent.getRequest = function(cbs) {
         return $.ajax({
-            url: "http://127.0.0.1:" + Agent.port + "/info",
+            url: "https://127.0.0.1:" + Agent.port + "/info",
             type: 'GET',
             cache: false,
             dataType: 'json',

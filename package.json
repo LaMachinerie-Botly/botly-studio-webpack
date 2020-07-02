@@ -38,9 +38,7 @@
         "webpack-dev-server": "^3.7.2"
     },
     "scripts": {
-        "start": "webpack-dev-server -d --hot --config webpack.config.js --watch",
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "server": "webpack-dev-server -d --hot --config webpack.config.js --watch",
+        "start": "webpack-dev-server -d --hot --https --config webpack.config.js --watch",
         "dev": "webpack --mode=development",
         "prod": "cross-env NODE_ENV=production webpack --mode=production --progress",
         "subInit": "git submodule update --init --recursive"
